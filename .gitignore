@@ -1,0 +1,33 @@
+# Node.js
+node_modules/
+
+# Bower
+bower_components/
+
+# Directorio de archivos compilados
+/dist/
+/build/
+
+# Archivos minificados
+*.min.js
+*.min.css
+
+# Archivos de respaldo y temporales
+*.log
+*.tmp
+*.bak
+
+# Archivos específicos de IDE y editor
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración local
+.env
+config.js
+
+# Otros archivos y directorios generados automáticamente
+/coverage/
+/logs/
+/tmp/

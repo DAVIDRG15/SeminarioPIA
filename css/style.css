@@ -1,0 +1,17 @@
+.container-bot {
+    animation: floatAnimation 3s infinite alternate;
+}
+
+.img-bot {
+    width: 192px !important;
+}
+
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-15px);
+    }
+}
