@@ -22,7 +22,7 @@
 <header>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="#">Asistente de Reducción de Alergias</a>
+            <a class="navbar-brand fw-bold" href="#">Asistente de Detección o Medicación de Alergias</a>
         </div>
     </nav>
 </header>
@@ -39,11 +39,15 @@
             <div class="row">
                 <div class="col-12 col-md-6 mb-4">
                     <div class="bg-secondary text-white p-3 rounded-end fw-bold">
-                        ¡Hola! Soy tu asistente ¿En qué puedo ayudarte hoy?
+                        ¡Hola! Soy tu asistente contra alergias ¿En qué puedo ayudarte hoy?
                     </div>
                 </div>
             </div>
             <div id="conversation"></div>
+            <div id="userResponseContainer" style="display: none;">
+                <button class="btn btn-primary me-2" id="yesBtn">Sí</button>
+                <button class="btn btn-danger" id="noBtn">No</button>
+            </div>
             <hr>
             <div class="row">
                 <div class="col-12 col-md-12">
