@@ -394,3 +394,132 @@ function handleItchingResponse(itchingResponse) {
 function scrollConversationToBottom() {
     conversationDiv.scrollTop = conversationDiv.scrollHeight + conversationDiv.clientHeight;
 }
+
+
+// Medicación
+
+function handleUserResponse(CongestionResponse) {
+    let response = '';
+
+    switch (CongestionResponse.toLowerCase()) {
+        case 'Tengo congestión':
+        case 'Tengo congeston nasal':
+        case 'Siento la nariz tapada':
+        case 'Nariz tapada':
+        case 'Congestión':
+        case 'No puedo respirar bien':
+        case 'Tengo la nariz tapada':
+        case 'Tapada':
+        case 'No respiro bien':
+            response = 'Le recomendamos usar humificadores o sonarse la nariz correctamente.';
+            break;
+        case 'Gracias':
+        case 'Muchas gracias':     
+            default:
+            response = 'No hay de que, espero haberte ayudado.';
+            break;
+    }
+}
+
+
+
+function handleUserResponse(sneezingResponse) {
+    let response = '';
+
+    switch (sneezingResponse.toLowerCase()) {
+        case 'Goteo nasal':
+        case 'Estornudo mucho':
+        case 'Escurrimiento':
+        case 'Dolor de garganta':
+        case 'Malestar':
+        case 'Irritación':
+        case 'Dolor en la garganta al estornudar':
+        case 'Ronquera':
+        case 'Voz ronca':
+        case 'Dolor en la garganta al pasar algun alimento':
+            response = 'Le recomendamos usar vapores, descansar lo suficiente, beber mucha agua, ir al médico en caso de que estas no soluciones no funcionen.';
+            break;
+        case 'Gracias':
+        case 'Muchas gracias':     
+            default:
+            response = 'No hay de que, espero haberte ayudado.';
+            break;
+    }
+}
+
+
+
+function handleUserResponse(rednessResponse,itchingResponse) {
+    let response = '';
+
+    switch (rednessResponse,itchingResponse.toLowerCase()) {
+        case 'Enrojecimiento':
+        case 'Ardor en los ojos':
+        case 'Molestia de la luz':
+        case 'Sensibilidad a la luz':
+        case 'No puedo abrir los ojos':
+        case 'Lagrimeo':
+        case 'Hinchazon':
+        case 'Inflamación':
+        case 'Vista borrosa':
+        case 'Picazon':
+            response = 'Le recomendamos usar gotas oculares, gafas oscuras, gotas de manzanilla, por ultima opcion ir al medico.';
+            break;
+        case 'Gracias':
+        case 'Muchas gracias':     
+            default:
+            response = 'No hay de que, espero haberte ayudado.';
+            break;
+    }
+}
+
+
+
+function handleUserResponse(rashesResponse) {
+    let response = '';
+
+    switch (rashesResponse.toLowerCase()) {
+        case 'Irritación en la piel':
+        case 'Enrojecimiento':
+        case 'Ardor en la piel':            
+        case 'Comezón':            
+        case 'Manchas rojas':            
+        case 'Picazón':            
+        case 'Salpullido':              
+            response = 'Le recomendamos usar cremas hidratantes, tomar baños con agua tibia, cremas antiinflamatorias, evitar lociones, evitar rascarse';
+            break;
+        case 'Gracias':
+        case 'Muchas gracias':     
+            default:
+            response = 'No hay de que, espero haberte ayudado.';
+            break;
+    }
+}
+
+
+
+function handleUserResponse(nauseaResponse) {
+    let response = '';
+
+    switch (nauseaResponse.toLowerCase()) {
+        case 'Mareo':
+        case 'Malestar en el abdomen':           
+        case 'Sensibilidad a la luz':           
+        case 'Poca hambre':           
+        case 'Migraña':           
+        case 'Reflujo':           
+        case 'Dolor de cabeza':           
+        case 'Deshidratación':           
+        case 'Desmayos':
+        case 'Sueño':    
+        case 'Nausea':
+        case 'Vomito':
+            response = 'Le recomendamos ir al medico, tomar agua, tener higiene, alimentos blandos, evitar olores fuertes  ';
+            break;
+        case 'Gracias':
+        case 'Muchas gracias':     
+            default:
+            response = 'No hay de que, espero haberte ayudado.';
+            break;
+    }
+}
