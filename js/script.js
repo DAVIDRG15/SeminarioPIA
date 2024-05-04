@@ -179,6 +179,209 @@ function respondToUser(message) {
         case 'quiero saber si mi malestar es debido a alergias o a otra causa':
             response = '¿Quieres realizar un diagnóstico para confirmar tus alergias?';
             break;
+
+        //sintomas medicacion
+        case 'tengo congestion':
+        case 'creo que tengo congestion':
+        case 'creo que tengo congestión':
+        case 'tengo congestión':
+        case 'creo que tengo congestion nasal':
+        case 'creo que tengo congestión nasal':
+        case 'tengo congestionión nasal':
+        case 'tengo congestionion nasal':
+        case 'siento la nariz tapada':
+        case 'nariz tapada':
+        case 'creo que tengo la nariz tapada':
+        case 'no respiro bien':
+        case 'no puedo respirar bien':
+            response = 'Le recomendamos usar humificadores o sonarse la nariz correctamente.';
+            break;
+        case 'goteo nasal':
+        case 'creo que tengo goteo nasal':
+        case 'tengp goteo nasal':
+        case 'estornudo mucho':
+        case 'goteo nasal':
+        case 'me la paso estornudando':
+        case 'estornudo seguido':
+        case 'estornudo frecuente':
+        case 'escurrimiento':
+        case 'siento escurrimiento':
+        case 'tengo escurrimiento':
+        case 'creo que tengo escurrimiento':
+        case 'dolor de garganta':
+        case 'tengo dolor de garganta':
+        case 'siento dolor en la garganta':
+        case 'siento malestar en la garganta':
+        case 'malestar en la garganta al estornudar':
+        case 'dolor al estornudar':
+        case 'irritacion en la garganta':
+        case 'irritación en la garganta':
+        case 'siento irritación en la garganta':
+        case 'siento irritacion en la garganta':
+        case 'siento ronquera':
+        case 'se escucha ronca mi voz':
+        case 'voz ronca':
+        case 'tengp voz ronca':
+        case 'siento que se escucha mi voz ronca':
+        case 'tengo dolor al pasar un alimento':
+        case 'dolor al pasar un alimento':
+            response = 'Le recomendamos usar vapores, descansar lo suficiente, beber mucha agua, ir al médico en caso de que estas no soluciones no funcionen.';
+            break;
+        case 'enrojecimiento':
+        case 'enrojecimiento en los ojos':
+        case 'enrojecimiento ocular':
+        case 'tengo enrojecimiento en los ojos':
+        case 'tengo enrojecimiento':
+        case 'siento enrojecimiento en los ojos':
+        case 'siento enrojecimiento':
+        case 'ardor en los ojos':
+        case 'tengo ardor en los ojos':
+        case 'siento ardor en los ojos':
+        case 'me arden los ojos':
+        case 'tengo ardor':
+        case 'creo que tengo enrojecimiento en los ojos':
+        case 'creo que tengo ardor':
+        case 'creo que tengo ardor en los ojos':
+        case 'sensibilidad a la luz':
+        case 'tengo sensibilidad a la luz':
+        case 'me molesta la luz':
+        case 'creo que tengo sensibilidad a la luz':
+        case 'no puedo abrir los ojos':
+        case 'creo que no puedo abrir los ojos':
+        case 'me molesta la luz al abir los ojos':
+        case 'siento lagrimeo':
+        case 'me lloran los ojos':
+        case 'siento que me lloran los ojos':
+        case 'creo que me lloran los ojos':
+        case 'siento hinchazon':
+        case 'siento hinchazon en los ojos':
+        case 'creo que tengo hinchazon en los ojos':
+        case 'creo que tengo hinchazon':
+        case 'tengo hinchazon en los ojos':
+        case 'siento hinchazon en los ojos':
+        case 'siento hinchados los ojos':
+        case 'tengo hinchados los ojos':
+        case 'creo que tengo hinchados los ojos':
+        case 'tengo inflamados los ojos':
+        case 'siento los ojos inflamados':
+        case 'siento como inflamados los ojos':
+        case 'inflamacion en los ojos':
+        case 'tengo vista borrosa':
+        case 'veo borroso':
+        case 'tengo la vista borrosa':
+        case 'siento picazon en los ojos':
+        case 'siento picazón en los ojos':
+        case 'tengo picazón en los ojos':
+        case 'me pican los ojos':
+            response = 'Le recomendamos usar gotas oculares, gafas oscuras, gotas de manzanilla, por ultima opción ir al medico.';
+            break;
+        case 'irritación en la piel':
+        case 'siento irritada la piel':
+        case 'tengo irritada la piel':
+        case 'creo que tengo irritada la piel':
+        case 'tengo enrojecimiento en la piel':
+        case 'creo que tengo enrojecimiento en la piel':
+        case 'siento enrojecimiento en la piel':
+        case 'enrojecimiento en la piel':
+        case 'tengo ardor en la piel':
+        case 'siento ardor en la piel':
+        case 'creo que tengo ardor en la piel':
+        case 'ardor en la piel':
+        case 'me arde la piel':
+        case 'tengo comezón en la piel':
+        case 'siento comezón en la piel':
+        case 'creo que tengo comezón en la piel':
+        case 'comezón en la piel':
+        case 'creo que tengo urticaria':
+        case 'tengo urticaria':
+        case 'parece que tengo urticaria':
+        case 'tengo manchas rojas en la piel':
+        case 'veo manchas rojas en la piel':
+        case 'se ven como manchas rojas en la piel':
+        case 'me pica la piel':
+        case 'tengo picazon en la piel':
+        case 'me pica la piel':
+        case 'tengo salpullido en la piel':
+        case 'creo que tengo salpullido en la piel':
+        case 'creo que tengo salpullido':           
+            response = 'Le recomendamos usar cremas hidratantes, tomar baños con agua tibia, cremas antiinflamatorias, evitar lociones, evitar rascarse';
+            break;
+        case 'me siento mareado':
+        case 'me siento mareada':
+        case 'tengo mareo':
+        case 'siento mareo':
+        case 'mareo constante':
+        case 'mareo seguido':
+        case 'tengo mareos seguidos':
+        case 'al levantarme me mareo':
+        case 'me mareo al levantarme':
+        case 'tengo malestar en el abdomen':
+        case 'siento malestar en el abdomen':
+        case 'me duele el abdomen':
+        case 'molestia en el abdomen':
+        case 'siento molestia en el abdomen':
+        case 'tengo molestia en el abdomen':
+        case 'tengo poca hambre':
+        case 'como poco':
+        case 'no tengo hambre':
+        case 'no siento hambre':
+        case 'no me da hambre':
+        case 'migraña':
+        case 'tengo migraña':
+        case 'creo que tengo migraña':
+        case 'dolor de cabeza':
+        case 'me duele la cabeza':
+        case 'siento que me duele la cabeza':
+        case 'creo que tengo dolor de cabeza':
+        case 'siento que me desmayo':
+        case 'tengo desmayos constantes':
+        case 'me desmayo constantemente':
+        case 'se me nubla la vista':
+        case 'tengo mucho sueño':
+        case 'me da mucho sueño':
+        case 'siento mucho sueño':
+        case 'sueño':
+        case 'nauseas':
+        case 'tengo nauseas':
+        case 'siento nauseas':
+        case 'vomito':
+        case 'tengo vomito':
+        case 'siento como si quisiera vomitar':
+        case 'vomito mucho':
+        case 'vomito constantemente':
+            response = 'Le recomendamos ir al medico, tomar agua, tener higiene, alimentos blandos, evitar olores fuertes.';
+            break;
+        case 'tengo diarrea':
+        case 'creo que tengo diarrea':
+        case 'voy al baño constantemente':
+        case 'voy al baño seguidamente':
+        case 'voy muy seguido al baño':
+        case 'vomito constantemente':
+        case 'tengo deshidratación':
+        case 'me siento deshidratado':
+        case 'creo que estoy deshidratado':
+        case 'tengo deshidratación':
+        case 'tengo mucha sed':
+        case 'sudo mucho':
+        case 'sudor':
+        case 'me duele el estomago':
+        case 'dolor en el estomago':
+        case 'tengo dolor estomacal':
+            response = 'Puede tomar Loperamida, Kaopectate ó Pepto-Bismol, tambien se recomienda tomar suero, ir al medico';
+            break;
+        case 'tengo el pulso debil':
+        case 'creo que tengo el pulso debil':
+        case 'dolor en el pecho':
+        case 'siento dolor en el pecho':
+        case 'fatiga':
+        case 'cansancio':
+        case 'me siento cansado':
+        case 'me canso constantemente':
+        case 'me canso muy rapido':
+        case 'siento que me falta el aire':
+        case 'siento que me desmayo':
+            response = 'Se recomienda hacer ejercicios aerobicos, ir al medico, algunos de los medicamentos que puede tomar son Propranolol, Metoprolol, Carvedilol, etc.';
+            break;
         default:
             response = 'Lo siento, no entiendo. ¿Puedes ser más específico?';
             break;
