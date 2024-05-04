@@ -159,6 +159,8 @@ function respondToUser(message) {
         case 'creo que tengo alergias':
         case 'siento que tengo alergias':
         case 'tengo alergias':
+        case 'tengo alergia':
+        case 'diagnostico':
         case 'detectar alergias':
         case 'detección de alergias':
         case 'me gustaria hacer un diagnostico de mis alergias':
@@ -177,10 +179,6 @@ function respondToUser(message) {
         case 'quiero saber si mi malestar es debido a alergias o a otra causa':
             response = '¿Quieres realizar un diagnóstico para confirmar tus alergias?';
             break;
-        case 'como puedo medicar mis alergias':
-        case 'que puedo tomar para las alergias':
-            response = '¿Quieres empezar a tomar acciones para tratar tus alergias?';
-            break;
         default:
             response = 'Lo siento, no entiendo. ¿Puedes ser más específico?';
             break;
@@ -194,6 +192,8 @@ function respondToUser(message) {
             'creo que tengo alergias',
             'siento que tengo alergias',
             'tengo alergias',
+            'tengo alergia',
+            'diagnostico',
             'detectar alergias',
             'detección de alergias',
             'creo que tengo alergia',
@@ -273,13 +273,12 @@ function askSymptomsQuestion() {
         }
     });
 }
-
 function handleCongestionResponse(congestionResponse) {
     const lowerCaseResponse = congestionResponse.toLowerCase();
 
     if (lowerCaseResponse === 'sí' || lowerCaseResponse === 'si') {
         appendMessage('user', congestionResponse);
-        appendMessage('assistant', 'Entiendo, son estornudos frecuentes o muy rara vez suceden?');
+        appendMessage('assistant', 'Entiendo, ¿son estornudos frecuentes o muy rara vez suceden?');
 
         // Crear un nuevo elemento de entrada para estornudos frecuentes
         const sneezingInput = document.createElement('input');
@@ -299,12 +298,28 @@ function handleCongestionResponse(congestionResponse) {
         });
     } else if (lowerCaseResponse === 'no') {
         appendMessage('user', congestionResponse);
-        appendMessage('assistant', 'Si no presentas congestión nasal, puede que la alergia ya haya cesado');
+        appendMessage('assistant', 'Si no presentas congestión nasal, puede que la alergia ya haya cesado.');
         // Puedes continuar con otras preguntas o el diagnóstico según sea necesario
     } else {
         appendMessage('user', congestionResponse);
-        appendMessage('assistant', 'Lo siento, no entendí tu respuesta. ¿Puedes responder "si" o "no"?');
-        scrollConversationToBottom();
+        appendMessage('assistant', 'Lo siento, solo puedes responder "sí" o "no". ¿Puedes intentarlo de nuevo?');
+
+        // Crear un nuevo elemento de entrada para que el usuario corrija su respuesta
+        const retryInput = document.createElement('input');
+        retryInput.type = 'text';
+        retryInput.id = 'retryInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(retryInput);
+
+        retryInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleCongestionResponse(retryInput.value.trim());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(retryInput);
+            }
+        });
     }
     scrollConversationToBottom();
 }
@@ -314,7 +329,7 @@ function handleSneezingResponse(sneezingResponse) {
 
     if (lowerCaseResponse === 'estornudos frecuentes') {
         appendMessage('user', sneezingResponse);
-        appendMessage('assistant', 'Claro, ademas de eso usted presenta enrojecimiento ocular?');
+        appendMessage('assistant', 'Claro, además de eso, ¿usted presenta enrojecimiento ocular?');
 
         // Crear un nuevo elemento de entrada para enrojecimiento ocular
         const rednessInput = document.createElement('input');
@@ -334,12 +349,28 @@ function handleSneezingResponse(sneezingResponse) {
         });
     } else if (lowerCaseResponse === 'rara vez suceden') {
         appendMessage('user', sneezingResponse);
-        appendMessage('assistant', 'Es probable que la alergia vaya a cesar pronto');
+        appendMessage('assistant', 'Es probable que la alergia vaya a cesar pronto.');
         // Puedes continuar con otras preguntas o el diagnóstico según sea necesario    
     } else {
         appendMessage('user', sneezingResponse);
-        appendMessage('assistant', 'Lo siento, no entendí tu respuesta. ¿Puedes responder "estornudos frecuentes"?');
-        scrollConversationToBottom();
+        appendMessage('assistant', 'Lo siento, solo puedes responder "estornudos frecuentes" o "rara vez suceden". ¿Puedes intentarlo de nuevo?');
+
+        // Crear un nuevo elemento de entrada para que el usuario corrija su respuesta
+        const retryInput = document.createElement('input');
+        retryInput.type = 'text';
+        retryInput.id = 'retryInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(retryInput);
+
+        retryInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleSneezingResponse(retryInput.value.trim());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(retryInput);
+            }
+        });
     }
     scrollConversationToBottom();
 }
@@ -368,14 +399,30 @@ function handleRednessResponse(rednessResponse) {
             }
         });
 
-    } else if (lowerCaseResponse === 'rara vez suceden') {
+    } else if (lowerCaseResponse === 'no') {
         appendMessage('user', rednessResponse);
-        appendMessage('assistant', 'Es probable que tengas alergia leve.');
+        appendMessage('assistant', 'Usted tiene indicios de una pequeña alergia leve, debe ser tratada adecuadamente para eliminarla, porfavor escriba el sintoma que tiene para ser recetao/a correctamente, agradezco mucho serte de ayuda.');
         // Puedes continuar con otras preguntas o el diagnóstico según sea necesario    
     } else {
         appendMessage('user', rednessResponse);
-        appendMessage('assistant', 'Es probable que tengas alergia leve.');
-        scrollConversationToBottom();
+        appendMessage('assistant', 'Lo siento, solo puedes responder "sí" o "no". ¿Puedes intentarlo de nuevo?');
+
+        // Crear un nuevo elemento de entrada para que el usuario corrija su respuesta
+        const retryInput = document.createElement('input');
+        retryInput.type = 'text';
+        retryInput.id = 'retryInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(retryInput);
+
+        retryInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleRednessResponse(retryInput.value.trim());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(retryInput);
+            }
+        });
     }
     scrollConversationToBottom();
 }
@@ -383,143 +430,321 @@ function handleRednessResponse(rednessResponse) {
 function handleItchingResponse(itchingResponse) {
     const lowerCaseResponse = itchingResponse.toLowerCase();
 
-    // Aquí maneja la respuesta sobre picazón en los ojos
-    // Puedes continuar con más preguntas o el diagnóstico según necesites
-    appendMessage('user', itchingResponse);
-    appendMessage('assistant', 'Aquí puedes continuar con más preguntas o el diagnóstico según necesites.');
+    if (lowerCaseResponse === 'sí' || lowerCaseResponse === 'si') {
+        appendMessage('user', itchingResponse);
+        appendMessage('assistant', '¿Tienes erupciones en la piel?');
+
+        // Crear un nuevo elemento de entrada para erupciones en la piel
+        const skinRashInput = document.createElement('input');
+        skinRashInput.type = 'text';
+        skinRashInput.id = 'skinRashInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(skinRashInput);
+
+        skinRashInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleSkinRashResponse(skinRashInput.value.trim().toLowerCase());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(skinRashInput);
+            }
+        });
+
+    } else if (lowerCaseResponse === 'no') {
+        appendMessage('user', itchingResponse);
+        appendMessage('assistant', 'Usted tiene indicios de una pequeña alergia leve, debe ser tratada adecuadamente para eliminarla. Por favor, escriba el síntoma que tiene para ser recetado/a correctamente. Agradezco mucho serte de ayuda.');
+        // Puedes continuar con otras preguntas o el diagnóstico según sea necesario    
+    } else {
+        appendMessage('user', itchingResponse);
+        appendMessage('assistant', 'Lo siento, solo puedes responder "sí" o "no". ¿Puedes intentarlo de nuevo?');
+
+        // Crear un nuevo elemento de entrada para que el usuario corrija su respuesta
+        const retryInput = document.createElement('input');
+        retryInput.type = 'text';
+        retryInput.id = 'retryInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(retryInput);
+
+        retryInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleItchingResponse(retryInput.value.trim());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(retryInput);
+            }
+        });
+    }
+    scrollConversationToBottom();
+}
+
+function handleSkinRashResponse(skinRashResponse) {
+    const lowerCaseResponse = skinRashResponse.toLowerCase();
+
+    if (lowerCaseResponse === 'sí' || lowerCaseResponse === 'si') {
+        appendMessage('user', skinRashResponse);
+        appendMessage('assistant', '¿Presentas vómitos o náuseas?');
+
+        // Crear un nuevo elemento de entrada para vómitos o náuseas
+        const nauseaInput = document.createElement('input');
+        nauseaInput.type = 'text';
+        nauseaInput.id = 'nauseaInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(nauseaInput);
+
+        nauseaInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleNauseaResponse(nauseaInput.value.trim().toLowerCase());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(nauseaInput);
+            }
+        });
+
+    } else if (lowerCaseResponse === 'no') {
+        appendMessage('user', skinRashResponse);
+        appendMessage('assistant', 'Usted tienes varios sintomas de una alergia moderada, debe ser tratada adecuadamente para eliminarla lo mas pronto posible puesto que no es tan grave pero si es algo de que preocuparse, ya que puede llegar a crecer mas. Por favor, escriba el síntoma que tiene para ser recetado/a correctamente. Agradezco mucho serte de ayuda.');
+        // Puedes continuar con otras preguntas o el diagnóstico según sea necesario    
+    } else {
+        appendMessage('user', skinRashResponse);
+        appendMessage('assistant', 'Lo siento, solo puedes responder "sí" o "no". ¿Puedes intentarlo de nuevo?');
+
+        // Crear un nuevo elemento de entrada para que el usuario corrija su respuesta
+        const retryInput = document.createElement('input');
+        retryInput.type = 'text';
+        retryInput.id = 'retryInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(retryInput);
+
+        retryInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleSkinRashResponse(retryInput.value.trim());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(retryInput);
+            }
+        });
+    }
+    scrollConversationToBottom();
+}
+
+function handleNauseaResponse(nauseaResponse) {
+    const lowerCaseResponse = nauseaResponse.toLowerCase();
+
+    if (lowerCaseResponse === 'sí' || lowerCaseResponse === 'si') {
+        appendMessage('user', nauseaResponse);
+        appendMessage('assistant', '¿Tiene dificultades severas para respirar?');
+
+        // Crear un nuevo elemento de entrada para dificultades respiratorias
+        const breathingDifficultyInput = document.createElement('input');
+        breathingDifficultyInput.type = 'text';
+        breathingDifficultyInput.id = 'breathingDifficultyInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(breathingDifficultyInput);
+
+        breathingDifficultyInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleBreathingDifficultyResponse(breathingDifficultyInput.value.trim().toLowerCase());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(breathingDifficultyInput);
+            }
+        });
+
+    } else if (lowerCaseResponse === 'no') {
+        appendMessage('user', nauseaResponse);
+        appendMessage('assistant', 'Usted tienes varios sintomas de una alergia moderada, debe ser tratada adecuadamente para eliminarla lo mas pronto posible puesto que no es tan grave pero si es algo de que preocuparse, ya que puede llegar a crecer mas. Por favor, escriba el síntoma que tiene para ser recetado/a correctamente. Agradezco mucho serte de ayuda.');
+        // Puedes continuar con otras preguntas o el diagnóstico según sea necesario    
+    } else {
+        appendMessage('user', nauseaResponse);
+        appendMessage('assistant', 'Lo siento, solo puedes responder "sí" o "no". ¿Puedes intentarlo de nuevo?');
+
+        // Crear un nuevo elemento de entrada para que el usuario corrija su respuesta
+        const retryInput = document.createElement('input');
+        retryInput.type = 'text';
+        retryInput.id = 'retryInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(retryInput);
+
+        retryInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleNauseaResponse(retryInput.value.trim());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(retryInput);
+            }
+        });
+    }
+    scrollConversationToBottom();
+}
+
+function handleBreathingDifficultyResponse(breathingDifficultyResponse) {
+    const lowerCaseResponse = breathingDifficultyResponse.toLowerCase();
+
+    if (lowerCaseResponse === 'sí' || lowerCaseResponse === 'si') {
+        appendMessage('user', breathingDifficultyResponse);
+        appendMessage('assistant', '¿Presenta visión borrosa?');
+
+        // Crear un nuevo elemento de entrada para visión borrosa
+        const blurryVisionInput = document.createElement('input');
+        blurryVisionInput.type = 'text';
+        blurryVisionInput.id = 'blurryVisionInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(blurryVisionInput);
+
+        blurryVisionInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleBlurryVisionResponse(blurryVisionInput.value.trim().toLowerCase());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(blurryVisionInput);
+            }
+        });
+
+    } else if (lowerCaseResponse === 'no') {
+        appendMessage('user', breathingDifficultyResponse);
+        appendMessage('assistant', 'Usted tiene varios síntomas de una alergia moderada. Debe ser tratada adecuadamente lo más pronto posible, ya que no es tan grave pero sí es algo de qué preocuparse, ya que puede llegar a crecer más. Por favor, escriba el síntoma que tiene para ser recetado/a correctamente. Agradezco mucho serte de ayuda.');
+        // Puedes continuar con otras preguntas o el diagnóstico según sea necesario    
+    } else {
+        appendMessage('user', breathingDifficultyResponse);
+        appendMessage('assistant', 'Lo siento, solo puedes responder "sí" o "no". ¿Puedes intentarlo de nuevo?');
+
+        // Crear un nuevo elemento de entrada para que el usuario corrija su respuesta
+        const retryInput = document.createElement('input');
+        retryInput.type = 'text';
+        retryInput.id = 'retryInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(retryInput);
+
+        retryInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleBlurryVisionResponse(retryInput.value.trim());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(retryInput);
+            }
+        });
+    }
+    scrollConversationToBottom();
+}
+
+function handleBlurryVisionResponse(BlurryVisionResponse) {
+    const lowerCaseResponse = BlurryVisionResponse.toLowerCase();
+
+    if (lowerCaseResponse === 'sí' || lowerCaseResponse === 'si') {
+        appendMessage('user', BlurryVisionResponse);
+        appendMessage('assistant', '¿Presenta dolor abdominal?');
+
+        // Crear un nuevo elemento de entrada para dolor abdominal
+        const abdominalPainInput = document.createElement('input');
+        abdominalPainInput.type = 'text';
+        abdominalPainInput.id = 'abdominalPainInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(abdominalPainInput);
+
+        abdominalPainInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleAbdominalPainResponse(abdominalPainInput.value.trim().toLowerCase());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(abdominalPainInput);
+            }
+        });
+
+    } else if (lowerCaseResponse === 'no') {
+        appendMessage('user', BlurryVisionResponse);
+        appendMessage('assistant', 'Usted tiene varios síntomas de una alergia moderada. Debe ser tratada adecuadamente lo más pronto posible, ya que no es tan grave pero sí es algo de qué preocuparse, ya que puede llegar a crecer más. Por favor, escriba el síntoma que tiene para ser recetado/a correctamente. Agradezco mucho serte de ayuda.');
+        // Puedes continuar con otras preguntas o el diagnóstico según sea necesario    
+    } else {
+        appendMessage('user', BlurryVisionResponse);
+        appendMessage('assistant', 'Lo siento, solo puedes responder "sí" o "no". ¿Puedes intentarlo de nuevo?');
+
+        // Crear un nuevo elemento de entrada para que el usuario corrija su respuesta
+        const retryInput = document.createElement('input');
+        retryInput.type = 'text';
+        retryInput.id = 'retryInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(retryInput);
+
+        retryInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleAbdominalPainResponse(retryInput.value.trim());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(retryInput);
+            }
+        });
+    }
+    scrollConversationToBottom();
+}
+
+function handleAbdominalPainResponse(AbdominalPainResponse) {
+    const lowerCaseResponse = AbdominalPainResponse.toLowerCase();
+
+    if (lowerCaseResponse === 'sí' || lowerCaseResponse === 'si') {
+        appendMessage('user', AbdominalPainResponse);
+        appendMessage('assistant', '¿Usted presenta diarrea profusa, pulso debil, vomitos severos o urticaria? ¿Alguna de las mencionadas anteriormente?');
+
+        // Crear un nuevo elemento de entrada para dolor abdominal
+        const abdominalPainInput = document.createElement('input');
+        abdominalPainInput.type = 'text';
+        abdominalPainInput.id = 'abdominalPainInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(abdominalPainInput);
+
+        abdominalPainInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                appendMessage('user', AbdominalPainResponse);
+                appendMessage('assistant', 'Usted tiene sintomas muy concretos de una alergia totalmente severa, debe ser tratada adecuadamente para eliminarla lo mas pronto posible ya que es una situación de total emergencia que puede llegar a agravarse mucho mas y puede ser letal. Por favor, escriba el síntoma que tiene para ser recetado/a correctamente. Agradezco mucho serte de ayuda." en caso de decir no simplemente me diga.');
+                // Puedes continuar con otras preguntas o el diagnóstico según sea necesario   
+            }
+        });
+
+    } else if (lowerCaseResponse === 'no') {
+        appendMessage('user', AbdominalPainResponse);
+        appendMessage('assistant', 'Usted tiene varios síntomas de una alergia moderada. Debe ser tratada adecuadamente lo más pronto posible, ya que no es tan grave pero sí es algo de qué preocuparse, ya que puede llegar a crecer más. Por favor, escriba el síntoma que tiene para ser recetado/a correctamente. Agradezco mucho serte de ayuda.');
+        // Puedes continuar con otras preguntas o el diagnóstico según sea necesario    
+    } else {
+        appendMessage('user', AbdominalPainResponse);
+        appendMessage('assistant', 'Lo siento, solo puedes responder "sí" o "no". ¿Puedes intentarlo de nuevo?');
+
+        // Crear un nuevo elemento de entrada para que el usuario corrija su respuesta
+        const retryInput = document.createElement('input');
+        retryInput.type = 'text';
+        retryInput.id = 'retryInput';
+
+        // Agregar el nuevo elemento al DOM
+        conversationDiv.appendChild(retryInput);
+
+        retryInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleBreathingDifficultyResponse(retryInput.value.trim());
+                // Eliminar el elemento de entrada después de obtener la respuesta
+                conversationDiv.removeChild(retryInput);
+            }
+        });
+    }
     scrollConversationToBottom();
 }
 
 
 function scrollConversationToBottom() {
+    const conversationDiv = document.getElementById('chat');
     conversationDiv.scrollTop = conversationDiv.scrollHeight + conversationDiv.clientHeight;
-}
 
-
-// Medicación
-
-function handleUserResponse(CongestionResponse) {
-    let response = '';
-
-    switch (CongestionResponse.toLowerCase()) {
-        case 'Tengo congestión':
-        case 'Tengo congeston nasal':
-        case 'Siento la nariz tapada':
-        case 'Nariz tapada':
-        case 'Congestión':
-        case 'No puedo respirar bien':
-        case 'Tengo la nariz tapada':
-        case 'Tapada':
-        case 'No respiro bien':
-            response = 'Le recomendamos usar humificadores o sonarse la nariz correctamente.';
-            break;
-        case 'Gracias':
-        case 'Muchas gracias':     
-            default:
-            response = 'No hay de que, espero haberte ayudado.';
-            break;
-    }
 }
 
 
 
-function handleUserResponse(sneezingResponse) {
-    let response = '';
 
-    switch (sneezingResponse.toLowerCase()) {
-        case 'Goteo nasal':
-        case 'Estornudo mucho':
-        case 'Escurrimiento':
-        case 'Dolor de garganta':
-        case 'Malestar':
-        case 'Irritación':
-        case 'Dolor en la garganta al estornudar':
-        case 'Ronquera':
-        case 'Voz ronca':
-        case 'Dolor en la garganta al pasar algun alimento':
-            response = 'Le recomendamos usar vapores, descansar lo suficiente, beber mucha agua, ir al médico en caso de que estas no soluciones no funcionen.';
-            break;
-        case 'Gracias':
-        case 'Muchas gracias':     
-            default:
-            response = 'No hay de que, espero haberte ayudado.';
-            break;
-    }
-}
-
-
-
-function handleUserResponse(rednessResponse,itchingResponse) {
-    let response = '';
-
-    switch (rednessResponse,itchingResponse.toLowerCase()) {
-        case 'Enrojecimiento':
-        case 'Ardor en los ojos':
-        case 'Molestia de la luz':
-        case 'Sensibilidad a la luz':
-        case 'No puedo abrir los ojos':
-        case 'Lagrimeo':
-        case 'Hinchazon':
-        case 'Inflamación':
-        case 'Vista borrosa':
-        case 'Picazon':
-            response = 'Le recomendamos usar gotas oculares, gafas oscuras, gotas de manzanilla, por ultima opcion ir al medico.';
-            break;
-        case 'Gracias':
-        case 'Muchas gracias':     
-            default:
-            response = 'No hay de que, espero haberte ayudado.';
-            break;
-    }
-}
-
-
-
-function handleUserResponse(rashesResponse) {
-    let response = '';
-
-    switch (rashesResponse.toLowerCase()) {
-        case 'Irritación en la piel':
-        case 'Enrojecimiento':
-        case 'Ardor en la piel':            
-        case 'Comezón':            
-        case 'Manchas rojas':            
-        case 'Picazón':            
-        case 'Salpullido':              
-            response = 'Le recomendamos usar cremas hidratantes, tomar baños con agua tibia, cremas antiinflamatorias, evitar lociones, evitar rascarse';
-            break;
-        case 'Gracias':
-        case 'Muchas gracias':     
-            default:
-            response = 'No hay de que, espero haberte ayudado.';
-            break;
-    }
-}
-
-
-
-function handleUserResponse(nauseaResponse) {
-    let response = '';
-
-    switch (nauseaResponse.toLowerCase()) {
-        case 'Mareo':
-        case 'Malestar en el abdomen':           
-        case 'Sensibilidad a la luz':           
-        case 'Poca hambre':           
-        case 'Migraña':           
-        case 'Reflujo':           
-        case 'Dolor de cabeza':           
-        case 'Deshidratación':           
-        case 'Desmayos':
-        case 'Sueño':    
-        case 'Nausea':
-        case 'Vomito':
-            response = 'Le recomendamos ir al medico, tomar agua, tener higiene, alimentos blandos, evitar olores fuertes  ';
-            break;
-        case 'Gracias':
-        case 'Muchas gracias':     
-            default:
-            response = 'No hay de que, espero haberte ayudado.';
-            break;
-    }
-}
